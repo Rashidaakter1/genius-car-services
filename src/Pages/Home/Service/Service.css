@@ -1,0 +1,10 @@
+.service{
+    padding: 5px;
+    text-align: center;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+.service-btn{
+    padding: 2px;
+    margin-bottom: 10px;
+}
