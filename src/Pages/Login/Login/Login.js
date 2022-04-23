@@ -8,6 +8,9 @@ import Loading from '../../Shared/Loading/Loading';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Helmet} from "react-helmet-async";
+import PsgeTitle from '../../Shared/PageTitle/PsgeTitle';
+
 const Login = () => {
     const emailRef = useRef('')
     const passwordRef = useRef('')
@@ -52,8 +55,10 @@ const Login = () => {
         }
 
     }
+
     return (
         <div className='container w-50 '>
+            <PsgeTitle title='Login'></PsgeTitle>
             <h1 className='text-center mt-5 mb-2'>Please login</h1>
             <Form onSubmit={handleLogin} className='mx-auto'>
                 <Form.Group className="mb-3" controlId="formBasicEmail">

@@ -1,9 +1,10 @@
 
 import React, { useRef, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSendEmailVerification, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
+import PsgeTitle from '../../Shared/PageTitle/PsgeTitle';
 import SocialLogin from '../SocialLogin/SocialLogin';
 
 const Register = () => {
@@ -21,7 +22,11 @@ const Register = () => {
       ] = useCreateUserWithEmailAndPassword(auth,{sendEmailVerification:true});
 
       const [updateProfile, updating, updateError] = useUpdateProfile(auth);  
+        
 
+      const [sendEmailVerification, sending] = useSendEmailVerification(
+        auth
+      );
     if(user){
         navigate('/home')
         console.log(user)
@@ -38,6 +43,7 @@ const Register = () => {
         const name = nameRef.current.value
 
         await createUserWithEmailAndPassword(email,password)
+        await sendEmailVerification();
         await updateProfile({ name });
         alert('Updated profile');
         
@@ -45,6 +51,7 @@ const Register = () => {
     }
     return (
         <div className='container'>
+            <PsgeTitle title='Register'></PsgeTitle>
             <h1 className='text-center'>Please Register </h1>
            
             <Form onSubmit={handleRegister} className='w-50 mx-auto'>
