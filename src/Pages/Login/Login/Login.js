@@ -8,8 +8,9 @@ import Loading from '../../Shared/Loading/Loading';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Helmet} from "react-helmet-async";
+import { Helmet } from "react-helmet-async";
 import PsgeTitle from '../../Shared/PageTitle/PsgeTitle';
+import axios from 'axios';
 
 const Login = () => {
     const emailRef = useRef('')
@@ -38,11 +39,30 @@ const Login = () => {
         return <Loading></Loading>
     }
 
-    const handleLogin = event => {
+    const handleLogin = async event => {
         event.preventDefault()
         const email = emailRef.current.value
         const password = passwordRef.current.value
-        signInWithEmailAndPassword(email, password)
+        await  signInWithEmailAndPassword(email, password)
+        const {data}=await axios.post('http://localhost:5000/login',{email})
+        console.log(data);
+        localStorage.setItem('accessToken',data.accessToken)
+        //post data
+        // const url = 'http://localhost:5000/login';
+        
+        // fetch(url, {
+        //     method: 'POST', 
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(email),
+        // })
+        //     .then(response => response.json())
+        //     .then(data => {
+
+        //        console.log('suceess full gone',data);
+        //     })
+
     }
     const handleResetPassword = async () => {
         const email = emailRef.current.value
@@ -50,7 +70,7 @@ const Login = () => {
             await sendPasswordResetEmail(email);
             toast('Sent email');
         }
-        else{
+        else {
             toast('Please enter your email address');
         }
 

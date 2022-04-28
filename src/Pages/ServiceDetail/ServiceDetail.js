@@ -13,7 +13,7 @@ const ServiceDetail = () => {
     return (
         <div>
             <h1>this is service Detail : {service.name}</h1>
-            <Link  to='/checkout' ><button className='text-center' >Proceed to Checkout </button></Link>
+            <Link  to={`/checkout/${serviceId}`} ><button className='text-center' >Proceed to Checkout </button></Link>
         </div>
     );
 };
